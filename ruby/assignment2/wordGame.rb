@@ -118,6 +118,7 @@ class WordGame
 		scores << (100 - 10*scores.length)
 	end
 	leader_board(scores)
+	return scores
   end
 
 =begin
@@ -134,7 +135,24 @@ class WordGame
   - other bookkeeping (e.g., setting totals to 0, etc.) can be coded however you see fit.
 =end
   def get_quartiles(scores)
-
+	i = 0
+	quarts = []
+	index = 0
+	numOfValuesPerIndex = scores.length/4
+	totals = 0
+	while i < scores.length
+	  if(i % numOfValuesPerIndex == 0)
+	    if(i != 0)
+	      quarts << totals
+	    end
+	    totals = scores[i]
+	  else
+	    totals += scores[i]
+	  end
+	  i += 1
+	end
+	quarts << totals	
+	yield(quarts)
   end
 
 =begin
@@ -145,7 +163,13 @@ Hint:
 - you can pass parameters to methods that contain a yield (not shown in slide)
 =end  
   def display_quartiles(scores)
-
+	get_quartiles(scores) do |quarts|
+	  i = 1
+	  quarts.each do |value|
+	    puts "The total for the #{i}st Quartile is #{value}"
+		i += 1
+	  end
+	end
   end
 
 end
