@@ -58,16 +58,20 @@ class WordGame
 
   def leader_board(scores)
     i = 0
-    scores.sort
+    name = if scores.length == 1 then "Lone Wolf" else "Top Dog" end
+    puts "We have a #{name}"
+    
 	firstScore,secondScore,thirdScore, *remainder = scores
 	until i > scores.length
 	  if i < 4
 	    display_score(scores[i], i)
 	  elsif i == 4
 	    total = 0
+	    
 	    remainder.each do |score|
 	      total += score
 	    end
+	    
 	    display_score(total, i)
 	  end
 	  i += 1
@@ -114,7 +118,9 @@ class WordGame
   def create_scores
 	scores = [100]
 	until scores.length >= 8
-		leader_board(scores)
+		if(scores.length < 5)
+		  leader_board(scores)
+		end
 		scores << (100 - 10*scores.length)
 	end
 	leader_board(scores)
@@ -193,17 +199,29 @@ puts "\nUnit tests follow..."
 Add a unit test to test the two word scores displayed above (hello and banana)
 and at least 3 others.
 =end
+class UnitTests < Test::Unit::TestCase
+  def test_helloScore
+    game = WordGame.new
+    assert_equal(7, game.word_score("hello"))
+  end
 
-def test_helloScore
+  def test_bannanaScore
+    game = WordGame.new
+    assert_equal(9, game.word_score("banana"))
+  end
+
+  def test_nonalphanumaricCharactersScore
+    game = WordGame.new
+    assert_equal(11, game.word_score("!@#$%^&*()"))
+  end
+
+  def test_spacesInWordScore
+    game = WordGame.new
+    assert_equal(18, game.word_score("test     test"))
+  end
+  
+  def test_singleCharScore
+	game = WordGame.new
+	assert_equal(2, game.word_score("a"))
+  end
 end
-
-def test_bannanaScore
-end
-
-def test_nonalphanumaricCharactersScore
-end
-
-def test_spacesInWordScore
-end
-
-
