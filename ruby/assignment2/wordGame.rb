@@ -11,7 +11,7 @@ class WordGame
   (e.g., score for hello is length (5) + frequency (2, for l))
 =end
   def word_score(word)
-
+	return word.length + count_letters(word)
   end
 
 =begin
@@ -24,7 +24,22 @@ class WordGame
   - I used each_char to iterate over the word. This is not available in Ruby 1.8.x. 
 =end
   def count_letters(word)
-
+	hashMap = {}
+	word.each_char do |a|
+		if hashMap.has_key?(a)
+			hashMap[a] = hashMap[a] + 1
+		else
+			hashMap[a] = 1
+		end
+	end
+	
+	max = hashMap[word[0]]
+	hashMap.each do |value,entry|
+		if entry > max
+			max = entry
+		end
+	end
+	return max
   end
 
 =begin
@@ -42,9 +57,23 @@ class WordGame
 =end
 
   def leader_board(scores)
-   
+    i = 0
+    scores.sort
+	firstScore,secondScore,thirdScore, *remainder = scores
+	until i > scores.length
+	  if i < 4
+	    display_score(scores[i], i)
+	  elsif i == 4
+	    total = 0
+	    remainder.each do |score|
+	      total += score
+	    end
+	    display_score(total, i)
+	  end
+	  i += 1
+	end
+	puts "\n"
   end
-
 =begin
   display_score either displays "The (which score) score is (value)" OR
   "There is no (which score) score". See the screenshot
@@ -52,7 +81,19 @@ class WordGame
   - use string interpolation
 =end
   def display_score score, rank
-
+	if score == nil
+	  return
+	end
+	
+	if rank > 3
+	  puts "The total of remaining scores is #{score}"
+	elsif rank == 0
+	  puts "The first score is #{score}"
+	elsif rank == 1
+	  puts "The second score is #{score}"
+	elsif rank == 2
+	  puts "The third score is #{score}"
+	end
   end
 
 =begin
@@ -71,7 +112,12 @@ class WordGame
 =end
 
   def create_scores
-
+	scores = [100]
+	until scores.length >= 8
+		leader_board(scores)
+		scores << (100 - 10*scores.length)
+	end
+	leader_board(scores)
   end
 
 =begin
@@ -123,3 +169,17 @@ puts "\nUnit tests follow..."
 Add a unit test to test the two word scores displayed above (hello and banana)
 and at least 3 others.
 =end
+
+def test_helloScore
+end
+
+def test_bannanaScore
+end
+
+def test_nonalphanumaricCharactersScore
+end
+
+def test_spacesInWordScore
+end
+
+
