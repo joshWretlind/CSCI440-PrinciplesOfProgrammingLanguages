@@ -1,0 +1,8 @@
+apple
+bannana
+grapefruit
+test
+foobar
+input
+output
+standard
