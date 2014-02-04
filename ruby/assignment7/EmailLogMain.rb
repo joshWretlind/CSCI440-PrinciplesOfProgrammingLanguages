@@ -2,7 +2,7 @@
 	Authors: Josh Wretlind
 			 Travis Boyd
 	Date: 02/03/2014
-	Version: 1.9.3
+	Version: 2.0.0
 =end
 
 #This is just a standard data object
@@ -25,6 +25,10 @@ class EmailData
 	
 	def messageID=(value)
 		@messageID=value
+	end
+	
+	def messageID
+		@messageID
 	end
 	
 	def sentDate=(value)
