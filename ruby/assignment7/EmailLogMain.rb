@@ -49,7 +49,7 @@ ID:   #{@messageID}
 From: #{@fromAddress} 
 Date: #{@sentDate}    
 Size: #{@messageSize} 
-To: "
+To:   "
 		
 		@toAddresses.each do | address |
 			outString += "#{address} "
