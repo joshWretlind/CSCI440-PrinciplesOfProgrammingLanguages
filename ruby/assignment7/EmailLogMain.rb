@@ -2,6 +2,7 @@
 	Authors: Josh Wretlind
 			 Travis Boyd
 	Date: 02/03/2014
+	Version: 1.9.3
 =end
 
 #This is just a standard data object
@@ -39,16 +40,17 @@ class EmailData
 	end
 	
 	def to_s
-		outString=" ID:   #{@messageID}   
-				    From: #{@fromAddress} 
-		            Date: #{@sentDate}    
-		            Size: #{@messageSize} 
-		            To: "
+		outString=" 
+ID:   #{@messageID}   
+From: #{@fromAddress} 
+Date: #{@sentDate}    
+Size: #{@messageSize} 
+To: "
 		
 		@toAddresses.each do | address |
 			outString += "#{address} "
 		end
-		
+		outString += " \n"
 		return outString
 	end
 end
@@ -68,9 +70,7 @@ def readFile(fileName)
 			idTable[id] = EmailData.new(from,id,date,size)
 		elsif(line =~ /smtp/)
 			id = line.match(/\: .*\: t/)[0].gsub(/[: t]/,"")
-			to = line.match(/<.*>,/)[0].gsub(/[<>, ]/,"")
-			to = to.slice(0,to.length-1)
-			puts "#{id} , #{to} , #{idTable[id]}"
+			to = line.match(/<.*?>,/)[0].gsub(/[<>, ]/,"")
 			idTable[id].addToAddress(to)
 
 		end
@@ -89,4 +89,5 @@ def printReport(idTable, count)
 end
 
 
-readFile("mail.log")
+count, idTable = readFile("mail.log")
+printReport(idTable,count)
