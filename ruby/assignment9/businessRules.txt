@@ -1,0 +1,25 @@
+product 'book'
+packing_slip 'shipping'
+pay 'comission'
+
+product 'ski pass'
+notify 'keystone'
+discount 'ski rental'
+
+product 'ski helmet'
+warrantee
+
+product 'gym membership'
+activate
+freebie 'water bottle!'
+
+product 'book'
+discount 'ski video'
+
+product 'ski video'
+pay 'comission'
+email 'buyer'
+discount 'book'
+
+
+
