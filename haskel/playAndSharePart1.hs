@@ -20,3 +20,5 @@ replaceLast x y = (take ((length y) -1) y) ++ [(last x)]
 replaceHeads x y = (tail x) ++ (tail y)
 
 replaceList x y = x ++ (drop (length x) y)
+
+grabIt x y z= (drop (sum (drop ((length x) - z + 1) x)) (take (sum ( take (z) x)) y))
