@@ -1,0 +1,3 @@
+negsInList x = sum [1 | i <- x, (i < 0)]
+
+oddsInList = sum [1 | i <- x, (mod i 2) == 1]
