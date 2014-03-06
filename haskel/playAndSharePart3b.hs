@@ -1,18 +1,3 @@
-convertToOz :: [Char] -> Int -> Int
-convertToOz "gallons" x = x*128
-convertToOz "pints" x = x*16
-convertToOz "quarts" x = x*32
-convertToOz "cups" x = x*8
-
-firstPair :: [Int] -> [Int] -> (Int,Int)
-firstPair (x:xs) (y:ys) = (x,y)
-
-multFirstTwo :: [Int] -> [Int]
-multFirstTwo (x:y:xs) = [x*y] ++ xs
-
---area :: (Int, Int) -> [Char]
---area (x,y) = "The Area of a rectangle with height " ++ show y::Char ++ " and width " ++ show y::Char
-
 cookTemp x 
   | x == "slow" = 350
   | x == "Medium" = 400
@@ -35,3 +20,13 @@ greet2 x =
     firstName = head x
     lastName = last x
   in "Hello " ++ firstName ++ " " ++ lastName
+
+myInfo x 
+  | length x == 1 = firstName ++ " lives somwehre"
+  | length x == 2 = firstName ++ " lives in " ++ city
+  | otherwise = "ERROR"
+  where
+    firstName = head (head x)
+    city = head (last x)
+    
+sumUsage x = sum [mb | kb <- x, let mb = kb/1024] 
