@@ -1,3 +1,15 @@
+{--
+  Author: Josh Wretlind
+  
+  
+  
+  One guideline on when to use a guard rather than a comprehention is when
+  you would otherwise have a long if block. 
+  
+  Then, another one is that pattern matching should be able to handle simple
+  error cases, such as empty lists/null, and things like that
+--}
+
 module ChapterThree where
 
 inList :: Eq a => a -> [a] -> [a]
@@ -14,19 +26,22 @@ courseMajor all@(x:y:xs) = all ++ " is a " ++ [x] ++ [y] ++ " course"
 
 threshold :: (Num a, Ord a) => a -> a -> a -> [Char]
 threshold x y z 
-  | x*y <= z = "Total is low"
-  | x*y <= 2*z = "Total is medium"
-  | x*y <= 3*z = "Total is high"
+  | x*y <= lowThreshold = "Total is low"
+  | x*y <= medThreshold = "Total is medium"
+  | x*y <= highThreshold = "Total is high"
   | otherwise = "Total is extraordinary"
-  
+  where
+    lowThreshold = z
+    medThreshold = 2*z
+    highThreshold = 3*z
+   
 lactate :: (Fractional a, Ord a) => a -> a -> [Char]
 lactate x y 
-  | x/y <= easy = "warmup"
-  | x/y <= aerobic = "aerobic"
-  | x/y <= steadyState = "Steady State"
-  | x/y <= anaerobic = "Anaerobic"
-  | x/y <= competitive = "Wow, don't do this for long"
-  | otherwise = "Invalid input"
+  | x/y >= competitive = "wow, don't do this for long!"
+  | x/y >= anaerobic = "anaerobic"
+  | x/y >= steadyState = "steadyState"
+  | x/y >= aerobic = "aerobic"
+  | otherwise = "warmup"
   where
     easy = 0.6
     aerobic = 0.7
