@@ -67,12 +67,14 @@ orderTwo x
   | (x!!1) <  (x!!0) = [x!!1, x!!0]
 
 {--
+orderThree:: Ord t => [t] -> [t]
 orderThree x
   | x!!0 == minimum x = [x!!0] ++ orderTwo [x!!1, x!!2]
   | x!!1 == minimum x = [x!!1] ++ orderTwo [x!!0, x!!2]
   | x!!2 == minimum x = [x!!2] ++ orderTwo [x!!0, x!!1]
 --}
 
+orderThree:: Ord t => [t] -> [t]
 orderThree x = 
   let 
     minimumElement = minimum x
