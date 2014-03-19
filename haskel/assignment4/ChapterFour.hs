@@ -52,6 +52,5 @@ subList x y z
   | x < 0 = error " start index needs to be greater than or equal to 0"
   | y < 0 = error " end index needs to be greater than or equal to 0"
   | x >= length z = []
-  | y >= length z = []
 subList _ 0 _ = []
-subList x y (z:zs) = ((z:zs)!!(x)):(subList (x+1) (y-1) (z:zs))
+subList x y (z:zs) = ((z:zs)!!x):(subList x (y-1) (zs))
