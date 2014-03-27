@@ -1,19 +1,9 @@
-multThree x y z = x*y*z
+divisibleBy x y = (mod y x) == 0
 
-cube x = map (^3) x
+--map (divisibleBy 2) [2,3,4]
 
-removeFirstElement x = map tail x
+divisibleByFive = divisibleBy 5
 
-initials x = filter (`elem` ['A'..'Z']) x
+--map divisibleByFive [2,4,5]
 
-noEven x = map (filter odd) x
-
-doubleArea = multThree 2
-
-multThreeF :: Float -> Float -> Float -> Float
-multThreeF x y z = x*y*z
-
-tenPctDiscount :: Float -> Float -> Float
-tenPctDiscount x y = multThreeF 0.1
-
-pctDiscount x = multThreeF x
+isDivisibleByFive = map (\x -> (mod x 5) == 0)
